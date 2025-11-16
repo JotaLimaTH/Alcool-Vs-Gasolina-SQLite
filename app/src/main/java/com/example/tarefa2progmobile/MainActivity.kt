@@ -1,5 +1,6 @@
 package com.example.tarefa2progmobile
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +34,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AlcoolOuGasolinaApp() {
+
+    // Shared Preferences
+
+    val context = LocalContext.current
+    val prefs = context.getSharedPreferences("MEUS_DADOS", Context.MODE_PRIVATE)
+
     var precoAlcool by rememberSaveable { mutableStateOf("") }
     var precoGasolina by rememberSaveable { mutableStateOf("") }
     var posto by rememberSaveable { mutableStateOf("") }
