@@ -8,26 +8,26 @@ import org.json.JSONObject
 
 data class Posto(
     val nome: String,
-    val precoAlcool: String,
-    val precoGasolina: String,
-    val usarSetentaECinco: Boolean
+    val alcool: String,
+    val gasolina: String,
+    val usar75: Boolean
 )
 
 fun postoParaJSON(p: Posto): JSONObject {
     val json = JSONObject()
     json.put("nome", p.nome)
-    json.put("precoAlcool", p.precoAlcool)
-    json.put("precoGasolina", p.precoGasolina)
-    json.put("usarSetentaECinco", p.usarSetentaECinco)
+    json.put("alcool", p.alcool)
+    json.put("gasolina", p.gasolina)
+    json.put("usar75", p.usar75)
     return json
 }
 
 fun jsonParaPosto(json: JSONObject): Posto{
     return Posto(
         nome = json.getString("nome"),
-        precoAlcool = json.getString("precoAlcool"),
-        precoGasolina = json.getString("precoGasolina"),
-        usarSetentaECinco = json.getBoolean("usarSetentaECinco")
+        alcool = json.getString("alcool"),
+        gasolina = json.getString("gasolina"),
+        usar75 = json.getBoolean("usar75")
     )
 }
 

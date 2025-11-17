@@ -129,7 +129,18 @@ fun AlcoolOuGasolinaApp() {
 
         Button(
             onClick = {
-                // escopo
+                if (precoGasolina.isNotBlank() && precoAlcool.isNotBlank() && posto.isNotBlank()) {
+                    val novoPosto = Posto(
+                        nome = posto,
+                        alcool = precoAlcool,
+                        gasolina = precoGasolina,
+                        usar75 = usarSetentaECinco
+                    )
+
+                    salvarPostoJSONEmLista(novoPosto)
+                } else {
+                    resultado = "Preencha todos os campos necessários!"
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
