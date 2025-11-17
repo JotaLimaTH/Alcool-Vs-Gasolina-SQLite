@@ -46,6 +46,24 @@ fun salvarPostoJSONEmLista(context: Context, posto: Posto){
     editor.apply()
 }
 
+fun deletarPosto(context: Context, index: Int){
+    val sharedFileName="POSTOS"
+    val sp: SharedPreferences = context.getSharedPreferences(sharedFileName, Context.MODE_PRIVATE)
+    val jsonListStr = sp.getString("lista", "[]")
+    val jsonArray = JSONArray(jsonListStr)
+
+    val novoArray = JSONArray()
+    for (i in 0 until jsonArray.length()) {
+        if (i != index) {
+            novoArray.put(jsonArray.getJSONObject(i))
+        }
+    }
+
+    sp.edit()
+        .putString("lista", novoArray.toString())
+        .apply()
+}
+
 fun carregarListaPosto(context: Context): MutableList<Posto> {
     val sp = context.getSharedPreferences("POSTOS", Context.MODE_PRIVATE)
     val jsonListStr = sp.getString("lista", "[]")

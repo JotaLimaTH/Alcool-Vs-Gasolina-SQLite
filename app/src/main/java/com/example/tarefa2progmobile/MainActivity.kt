@@ -71,7 +71,23 @@ fun ListaPostos(irParaAdicionarPosto: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(lista.joinToString())
+        lista.forEachIndexed {index, posto ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text("${posto.nome}")
+                Button(
+                    onClick = {
+                        deletarPosto(context, index)
+                        lista = carregarListaPosto(context)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Deletar")
+                }
+            }
+        }
         Button(
             onClick = irParaAdicionarPosto
         ) {
