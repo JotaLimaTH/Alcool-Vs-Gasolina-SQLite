@@ -43,7 +43,9 @@ fun AlcoolOuGasolinaApp() {
     var precoAlcool by rememberSaveable { mutableStateOf("") }
     var precoGasolina by rememberSaveable { mutableStateOf("") }
     var posto by rememberSaveable { mutableStateOf("") }
-    var usarSetentaECinco by rememberSaveable { mutableStateOf(false) }
+    var usarSetentaECinco by rememberSaveable { mutableStateOf(
+        prefs.getBoolean("usar75", false)
+    ) }
     var resultado by remember { mutableStateOf("") }
 
     val percentual = if (usarSetentaECinco) 0.75 else 0.70
@@ -86,7 +88,11 @@ fun AlcoolOuGasolinaApp() {
             Text("${if (usarSetentaECinco) "75%" else "70%"}")
             Switch(
                 checked = usarSetentaECinco,
-                onCheckedChange = { usarSetentaECinco = it }
+                // onCheckedChange = { usarSetentaECinco = it }
+                onCheckedChange = { novoValor ->
+                    usarSetentaECinco = novoValor
+                    prefs.edit().putBoolean("usar75", novoValor).apply()
+                }
             )
         }
 
