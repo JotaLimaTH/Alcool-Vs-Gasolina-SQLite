@@ -5,13 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
-
-data class Posto(
-    val nome: String,
-    val alcool: String,
-    val gasolina: String,
-    val usar75: Boolean
-)
+import java.util.UUID
 
 fun postoParaJSON(p: Posto): JSONObject {
     val json = JSONObject()
@@ -19,17 +13,31 @@ fun postoParaJSON(p: Posto): JSONObject {
     json.put("alcool", p.alcool)
     json.put("gasolina", p.gasolina)
     json.put("usar75", p.usar75)
+    json.put("id", p.id)
+    json.put("dataRegistro", p.dataRegistro)
+    json.put("latitude", p.latitude)
+    json.put("longitude", p.longitude)
     return json
 }
 
-fun jsonParaPosto(json: JSONObject): Posto{
+// Em PostoArmazenamento.kt
+
+fun jsonParaPosto(json: JSONObject): Posto {
+    val id = json.optString("id")
+    val data = json.optString("dataRegistro")
+
     return Posto(
         nome = json.getString("nome"),
         alcool = json.getString("alcool"),
         gasolina = json.getString("gasolina"),
-        usar75 = json.getBoolean("usar75")
+        usar75 = json.getBoolean("usar75"),
+        id = if (id.isNullOrEmpty()) UUID.randomUUID().toString() else id,
+        dataRegistro = if (data.isNullOrEmpty()) "Data não encontrada" else data,
+        latitude = json.optDouble("latitude", 0.0),
+        longitude = json.optDouble("longitude", 0.0)
     )
 }
+
 
 fun salvarPostoJSONEmLista(context: Context, posto: Posto){
     Log.v("PDM25","Salvando o posto em JSON")

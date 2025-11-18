@@ -24,21 +24,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController // <- MUDANÇA 1: Importação nova
 
 @Composable
-fun AdicionarPosto(voltar: () -> Unit) {
+fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavController
 
     // Shared Preferences
-
     val context = LocalContext.current
     val prefs = context.getSharedPreferences("MEUS_DADOS", Context.MODE_PRIVATE)
 
     var precoAlcool by rememberSaveable { mutableStateOf("") }
     var precoGasolina by rememberSaveable { mutableStateOf("") }
     var posto by rememberSaveable { mutableStateOf("") }
-    var usarSetentaECinco by rememberSaveable { mutableStateOf(
-        prefs.getBoolean("usar75", false)
-    ) }
+    var usarSetentaECinco by rememberSaveable {
+        mutableStateOf(
+            prefs.getBoolean("usar75", false)
+        )
+    }
     var resultado by remember { mutableStateOf("") }
 
     val percentual = if (usarSetentaECinco) 0.75 else 0.70
@@ -81,7 +83,6 @@ fun AdicionarPosto(voltar: () -> Unit) {
             Text("${if (usarSetentaECinco) "75%" else "70%"}")
             Switch(
                 checked = usarSetentaECinco,
-                // onCheckedChange = { usarSetentaECinco = it }
                 onCheckedChange = { novoValor ->
                     usarSetentaECinco = novoValor
                     prefs.edit().putBoolean("usar75", novoValor).apply()
@@ -135,7 +136,7 @@ fun AdicionarPosto(voltar: () -> Unit) {
                     resultado = json*/ // Para saber se criou mesmo a lista
 
                     resultado = "Posto adicionado! \n"
-                    voltar()
+                    navController.popBackStack() // <- MUDANÇA 3: Usa o NavController para voltar
                 } else {
                     resultado = "Preencha todos os campos necessários!"
                 }

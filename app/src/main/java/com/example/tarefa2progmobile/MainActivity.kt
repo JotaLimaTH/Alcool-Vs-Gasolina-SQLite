@@ -46,28 +46,19 @@ fun AppNav() {
 
     NavHost(navController = nav, startDestination = "lista"){
         composable("lista"){
-            ListaPostos(
-                irParaAdicionarPosto = { nav.navigate("adicionarPosto") },
-                irParaEditarPosto = { index -> nav.navigate("editarPosto/$index") }
-            )
+            ListaPostos(navController = nav)
         }
 
         composable("adicionarPosto"){
-            AdicionarPosto(
-                voltar = { nav.popBackStack() }
-            )
+            AdicionarPosto(navController = nav)
         }
         composable("editarPosto/{index}"){ backStack ->
             val index = backStack.arguments?.getString("index")?.toInt() ?: -1
-            EditarPosto(index = index, voltar = { nav.popBackStack() })
+            if (index != -1) {
+                EditarPosto(index = index, navController = nav)
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewApp() {
-    Tarefa2ProgMobileTheme {
-        AdicionarPosto({})
-    }
-}
+

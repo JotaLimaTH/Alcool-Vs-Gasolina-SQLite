@@ -24,11 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
-fun EditarPosto(index: Int, voltar: () -> Unit) {
-
-    // Shared Preferences
+fun EditarPosto(index: Int, navController: NavController) {
 
     val context = LocalContext.current
     val lista = carregarListaPosto(context)
@@ -126,16 +125,21 @@ fun EditarPosto(index: Int, voltar: () -> Unit) {
                         nome = posto,
                         alcool = precoAlcool,
                         gasolina = precoGasolina,
-                        usar75 = usarSetentaECinco
+                        usar75 = usarSetentaECinco,
+                        id = postoOriginal.id,
+                        dataRegistro = postoOriginal.dataRegistro,
+                        latitude = postoOriginal.latitude,
+                        longitude = postoOriginal.longitude
                     )
 
                     editarPosto(context, index, novoPosto)
+
                     /*val sp: SharedPreferences = context.getSharedPreferences("POSTOS", Context.MODE_PRIVATE)
                     val json = sp.getString("lista", "[]") ?: "[]"
                     resultado = json*/ // Para saber se criou mesmo a lista
 
                     resultado = "Posto modificado! \n"
-                    voltar()
+                    navController.popBackStack()
                 } else {
                     resultado = "Preencha todos os campos necessários!"
                 }
