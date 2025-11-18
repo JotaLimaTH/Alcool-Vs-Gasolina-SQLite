@@ -30,6 +30,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.width
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
@@ -60,6 +61,20 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
     var userLongitude by rememberSaveable { mutableStateOf<Double?>(null) }
 
     val percentual = if (usarSetentaECinco) 0.75 else 0.70
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    userLatitude = location.latitude
+                    userLongitude = location.longitude
+                }
+            }
+        }
+    }
+
 
     Column(
         modifier = Modifier
@@ -176,7 +191,9 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
                         nome = posto,
                         alcool = precoAlcool,
                         gasolina = precoGasolina,
-                        usar75 = usarSetentaECinco
+                        usar75 = usarSetentaECinco,
+                        latitude = userLatitude,
+                        longitude = userLongitude
                     )
 
                     salvarPostoJSONEmLista(context, novoPosto)

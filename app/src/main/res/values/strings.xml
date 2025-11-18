@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">tarefa2ProgMobile</string>
+    <string name="app_name">Tarefa2ProgMobile</string>
+
+    <string name="preco_alcool">Preço do Álcool (R$)</string>
+    <string name="preco_gasolina">Preço da Gasolina (R$)</string>
+    <string name="nome_posto">Nome do Posto (Opcional)</string>
+
+    <string name="porcentagem_70">70%</string>
+    <string name="porcentagem_75">75%</string>
+
+    <string name="obter_localizacao">Obter Localização do Usuário</string>
+    <string name="calcular">Calcular</string>
+
+    <string name="resultado_alcool">Melhor usar Álcool</string>
+    <string name="resultado_gasolina">Melhor usar Gasolina</string>
+    <string name="erro_preenchimento">Preencha os valores corretamente!</string>
+
+    <string name="abrir_mapa">Abrir Mapa do Posto</string>
 </resources>

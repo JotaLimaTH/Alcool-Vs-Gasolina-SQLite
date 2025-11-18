@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Fuel Calculator</string>
+    <string name="preco_alcool">Alcohol Price (R$)</string>
+    <string name="preco_gasolina">Gasoline Price (R$)</string>
+    <string name="nome_posto">Gas Station Name (Optional)</string>
+    <string name="calcular">Calculate</string>
+    <string name="obter_localizacao">Get User Location</string>
+    <string name="melhor_alcool">Better use Alcohol</string>
+    <string name="melhor_gasolina">Better use Gasoline</string>
+    <string name="erro_preencha">Fill in the values correctly!</string>
+    <string name="abrir_mapa">Open Station Map</string>
+</resources>

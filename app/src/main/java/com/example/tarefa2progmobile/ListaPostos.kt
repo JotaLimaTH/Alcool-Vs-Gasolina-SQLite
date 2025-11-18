@@ -91,6 +91,8 @@ fun PostoCard(posto: Posto, onDelete: () -> Unit, onEdit: () -> Unit) {
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = "Gasolina: R$ ${posto.gasolina}")
             Text(text = "Álcool: R$ ${posto.alcool}")
+            Text(text = "Latitude: ${posto.latitude}")
+            Text(text = "Longitude: ${posto.longitude}")
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = "Registrado em: ${posto.dataRegistro}", fontSize = 12.sp, color = MaterialTheme.colorScheme.outline)
 
