@@ -1,5 +1,6 @@
 package com.example.tarefa2progmobile
 
+import android.provider.Settings.Global.getString
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -28,7 +29,7 @@ fun ListaPostos(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Postos de Combustível") },
+                title = { Text(context.getString(R.string.gas_station)) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary
@@ -53,7 +54,7 @@ fun ListaPostos(navController: NavController) {
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Nenhum posto cadastrado.")
+                    Text(context.getString(R.string.nenhum_posto))
                 }
             } else {
                 LazyColumn(
@@ -80,6 +81,7 @@ fun ListaPostos(navController: NavController) {
 
 @Composable
 fun PostoCard(posto: Posto, onDelete: () -> Unit, onEdit: () -> Unit) {
+    val context = LocalContext.current
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -89,12 +91,12 @@ fun PostoCard(posto: Posto, onDelete: () -> Unit, onEdit: () -> Unit) {
         ) {
             Text(text = posto.nome, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = "Gasolina: R$ ${posto.gasolina}")
-            Text(text = "Álcool: R$ ${posto.alcool}")
+            Text(text = "${context.getString(R.string.gasoline)}: R$ ${posto.gasolina}")
+            Text(text = "${context.getString(R.string.alcohol)}: R$ ${posto.alcool}")
             Text(text = "Latitude: ${posto.latitude}")
             Text(text = "Longitude: ${posto.longitude}")
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Registrado em: ${posto.dataRegistro}", fontSize = 12.sp, color = MaterialTheme.colorScheme.outline)
+            Text(text = "${context.getString(R.string.registrado_em)}: ${posto.dataRegistro}", fontSize = 12.sp, color = MaterialTheme.colorScheme.outline)
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -102,11 +104,11 @@ fun PostoCard(posto: Posto, onDelete: () -> Unit, onEdit: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TextButton(onClick = onEdit) {
-                    Text("EDITAR")
+                    Text("${context.getString(R.string.editar)}")
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 Button(onClick = onDelete) {
-                    Text("DELETAR")
+                    Text("${context.getString(R.string.deletar)}")
                 }
             }
         }

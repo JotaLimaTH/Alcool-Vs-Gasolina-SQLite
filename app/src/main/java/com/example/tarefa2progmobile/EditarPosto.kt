@@ -1,6 +1,7 @@
 package com.example.tarefa2progmobile
 
 import android.content.Context
+import android.provider.Settings.Global.getString
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,7 +54,7 @@ fun EditarPosto(index: Int, navController: NavController) {
         OutlinedTextField(
             value = precoAlcool,
             onValueChange = { precoAlcool = it },
-            label = { Text("Preço do Álcool (R$)") },
+            label = { Text(context.getString(R.string.preco_alcool)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -62,7 +63,7 @@ fun EditarPosto(index: Int, navController: NavController) {
         OutlinedTextField(
             value = precoGasolina,
             onValueChange = { precoGasolina = it },
-            label = { Text("Preço da Gasolina (R$)") },
+            label = { Text(context.getString(R.string.preco_gasolina)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -71,7 +72,7 @@ fun EditarPosto(index: Int, navController: NavController) {
         OutlinedTextField(
             value = posto,
             onValueChange = { posto = it },
-            label = { Text("Nome do Posto (Opcional)") },
+            label = { Text(context.getString(R.string.nome_posto)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -98,17 +99,17 @@ fun EditarPosto(index: Int, navController: NavController) {
                 if (alcool != null && gasolina != null && gasolina > 0) {
                     val limite = gasolina * percentual
                     resultado = if (alcool <= limite) {
-                        "Melhor usar Álcool"
+                        context.getString(R.string.melhor_alcool)
                     } else {
-                        "Melhor usar Gasolina"
+                        context.getString(R.string.melhor_gasolina)
                     }
                 } else {
-                    resultado = "Preencha os valores corretamente!"
+                    resultado = context.getString(R.string.erro_preenchimento)
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Calcular")
+            Text(context.getString(R.string.calcular))
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -138,10 +139,10 @@ fun EditarPosto(index: Int, navController: NavController) {
                     val json = sp.getString("lista", "[]") ?: "[]"
                     resultado = json*/ // Para saber se criou mesmo a lista
 
-                    resultado = "Posto modificado! \n"
+                    resultado = "${context.getString(R.string.posto_modificado)}! \n"
                     navController.popBackStack()
                 } else {
-                    resultado = "Preencha todos os campos necessários!"
+                    resultado = context.getString(R.string.erro_preenchimento)
                 }
             },
             modifier = Modifier.fillMaxWidth()

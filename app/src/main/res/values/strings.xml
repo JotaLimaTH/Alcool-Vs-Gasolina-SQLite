@@ -16,4 +16,18 @@
     <string name="erro_preenchimento">Preencha os valores corretamente!</string>
 
     <string name="abrir_mapa">Abrir Mapa do Posto</string>
+    <string name="melhor_alcool">Melhor usar álcool</string>
+    <string name="melhor_gasolina">Melhor usar gasolina</string>
+    <string name="erro_preencha">Preencha os campos corretamente!</string>
+
+    <string name="deletar">Deletar</string>
+    <string name="editar">Editar</string>
+    <string name="salvar">Salvar</string>
+    <string name="gasoline">Gasolina</string>
+    <string name="alcohol">Álcool</string>
+    <string name="registrado_em">Registrado em:</string>
+    <string name="posto_modificado">Posto modificado!</string>
+    <string name="station_added">Posto adicionado!</string>
+    <string name="gas_station">Postos de Combustível</string>
+    <string name="nenhum_posto">Nenhum posto cadastrado.</string>
 </resources>

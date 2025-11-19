@@ -32,9 +32,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+//import androidx.compose.ui.res.getString
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import com.google.android.gms.location.LocationServices
 
 @Composable
@@ -86,7 +85,7 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
         OutlinedTextField(
             value = precoAlcool,
             onValueChange = { precoAlcool = it },
-            label = { Text(stringResource(R.string.preco_alcool)) },
+            label = { Text(context.getString(R.string.preco_alcool)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -95,7 +94,7 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
         OutlinedTextField(
             value = precoGasolina,
             onValueChange = { precoGasolina = it },
-            label = { Text(stringResource(R.string.preco_gasolina)) },
+            label = { Text(context.getString(R.string.preco_gasolina)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -104,7 +103,7 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
         OutlinedTextField(
             value = posto,
             onValueChange = { posto = it },
-            label = { Text("Nome do Posto (Opcional)") },
+            label = { Text(context.getString(R.string.nome_posto)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -113,9 +112,9 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 if (usarSetentaECinco)
-                    stringResource(R.string.porcentagem_75)
+                    context.getString(R.string.porcentagem_75)
                 else
-                    stringResource(R.string.porcentagem_70)
+                    context.getString(R.string.porcentagem_70)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Switch(
@@ -135,7 +134,7 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(stringResource(R.string.obter_localizacao))
+            Text(context.getString(R.string.obter_localizacao))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -158,7 +157,7 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(stringResource(R.string.calcular))
+            Text(context.getString(R.string.calcular))
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -180,7 +179,7 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
                     context.startActivity(mapIntent)
                 }
             ) {
-                Text(stringResource(R.string.abrir_mapa))
+                Text(context.getString(R.string.abrir_mapa))
             }
         }
 
@@ -201,15 +200,15 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
                     val json = sp.getString("lista", "[]") ?: "[]"
                     resultado = json*/ // Para saber se criou mesmo a lista
 
-                    resultado = "Posto adicionado! \n"
+                    resultado = "${context.getString(R.string.station_added)} \n"
                     navController.popBackStack() // <- MUDANÇA 3: Usa o NavController para voltar
                 } else {
-                    resultado = "Preencha todos os campos necessários!"
+                    resultado = context.getString(R.string.erro_preenchimento)
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Salvar posto")
+            Text(context.getString(R.string.salvar))
         }
     }
 }

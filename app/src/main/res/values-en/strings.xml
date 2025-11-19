@@ -8,5 +8,18 @@
     <string name="melhor_alcool">Better use Alcohol</string>
     <string name="melhor_gasolina">Better use Gasoline</string>
     <string name="erro_preencha">Fill in the values correctly!</string>
+    <string name="erro_preenchimento">Fill in the values correctly!</string>
     <string name="abrir_mapa">Open Station Map</string>
+    <string name="resultado_alcool">Better use Alcohol</string>
+    <string name="resultado_gasolina">Better use Gasoline</string>
+    <string name="deletar">Delete</string>
+    <string name="editar">Edit</string>
+    <string name="salvar">Save</string>
+    <string name="gasoline">Gasoline</string>
+    <string name="alcohol">Alcohol</string>
+    <string name="registrado_em">Created in:</string>
+    <string name="posto_modificado">Station modified!</string>
+    <string name="station_added">Station added!</string>
+    <string name="gas_station">Gas Stations</string>
+    <string name="nenhum_posto">No stations registered.</string>
 </resources>
