@@ -3,41 +3,53 @@ package com.example.tarefa2progmobile
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import org.json.JSONArray
+/*import org.json.JSONArray
 import org.json.JSONObject
-import java.util.UUID
+import java.util.UUID*/
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.content.ContentValues
+import android.database.Cursor
 
-fun postoParaJSON(p: Posto): JSONObject {
-    val json = JSONObject()
-    json.put("nome", p.nome)
-    json.put("alcool", p.alcool)
-    json.put("gasolina", p.gasolina)
-    json.put("usar75", p.usar75)
-    json.put("id", p.id)
-    json.put("dataRegistro", p.dataRegistro)
-    json.put("latitude", p.latitude)
-    json.put("longitude", p.longitude)
-    return json
+class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL("""
+            CREATE TABLE postos(
+                id TEXT PRIMARY KEY,
+                nome TEXT NOT NULL,
+                alcool TEXT NOT NULL,
+                gasolina TEXT NOT NULL,
+                usar75 INTEGER NOT NULL,
+                data_registro TEXT NOT NULL,
+                latitude REAL,
+                longitude REAL
+            )
+        """.trimIndent())
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS postos")
+        onCreate(db)
+    }
+
+    companion object {
+        const val DATABASE_NAME = "app_database.db"
+        const val DATABASE_VERSION = 1
+    }
 }
 
-// Em PostoArmazenamento.kt
-
-fun jsonParaPosto(json: JSONObject): Posto {
-    val id = json.optString("id")
-    val data = json.optString("dataRegistro")
-
-    return Posto(
-        nome = json.getString("nome"),
-        alcool = json.getString("alcool"),
-        gasolina = json.getString("gasolina"),
-        usar75 = json.getBoolean("usar75"),
-        id = if (id.isNullOrEmpty()) UUID.randomUUID().toString() else id,
-        dataRegistro = if (data.isNullOrEmpty()) "Data não encontrada" else data,
-        latitude = json.optDouble("latitude", 0.0),
-        longitude = json.optDouble("longitude", 0.0)
-    )
+fun postoParaContentValues(posto: Posto): ContentValues {
+    return ContentValues().apply {
+        put("id", posto.id)
+        put("nome", posto.nome)
+        put("alcool", posto.alcool)
+        put("gasolina", posto.gasolina)
+        put("usar75", if (posto.usar75) 1 else 0)
+        put("data_registro", posto.dataRegistro)
+        put("latitude", posto.latitude)
+        put("longitude", posto.longitude)
+    }
 }
-
 
 fun salvarPostoJSONEmLista(context: Context, posto: Posto){
     Log.v("PDM25","Salvando o posto em JSON")
