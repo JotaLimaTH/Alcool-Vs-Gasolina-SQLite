@@ -45,6 +45,9 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
         LocationServices.getFusedLocationProviderClient(context)
     }
     val prefs = context.getSharedPreferences("MEUS_DADOS", Context.MODE_PRIVATE)
+    val dbHelper = remember {
+        AppDatabaseHelper(context)
+    }
 
     var precoAlcool by rememberSaveable { mutableStateOf("") }
     var precoGasolina by rememberSaveable { mutableStateOf("") }
@@ -195,7 +198,7 @@ fun AdicionarPosto(navController: NavController) { // <- MUDANÇA 2: Recebe NavC
                         longitude = userLongitude
                     )
 
-                    salvarPostoJSONEmLista(context, novoPosto)
+                    salvarPosto(dbHelper, novoPosto)
                     /*val sp: SharedPreferences = context.getSharedPreferences("POSTOS", Context.MODE_PRIVATE)
                     val json = sp.getString("lista", "[]") ?: "[]"
                     resultado = json*/ // Para saber se criou mesmo a lista

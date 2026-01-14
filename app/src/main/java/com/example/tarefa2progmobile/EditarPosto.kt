@@ -28,12 +28,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun EditarPosto(index: Int, navController: NavController) {
+fun EditarPosto(id: Long, navController: NavController) {
 
     val context = LocalContext.current
-    val lista = carregarListaPosto(context)
-
-    val postoOriginal = lista[index]
+    val dbHelper = remember {
+        AppDatabaseHelper(context)
+    }
+    val postoOriginal = remember(id) {
+        buscarPostoPorId(dbHelper, id)
+    } ?: return
 
     var precoAlcool by rememberSaveable { mutableStateOf(postoOriginal.alcool) }
     var precoGasolina by rememberSaveable { mutableStateOf(postoOriginal.gasolina) }
@@ -133,7 +136,7 @@ fun EditarPosto(index: Int, navController: NavController) {
                         longitude = postoOriginal.longitude
                     )
 
-                    editarPosto(context, index, novoPosto)
+                    editarPosto(dbHelper, novoPosto)
 
                     /*val sp: SharedPreferences = context.getSharedPreferences("POSTOS", Context.MODE_PRIVATE)
                     val json = sp.getString("lista", "[]") ?: "[]"

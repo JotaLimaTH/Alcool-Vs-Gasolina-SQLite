@@ -1,6 +1,5 @@
 package com.example.tarefa2progmobile
 
-import android.provider.Settings.Global.getString
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -24,7 +23,10 @@ import androidx.navigation.NavController
 @Composable
 fun ListaPostos(navController: NavController) {
     val context = LocalContext.current
-    var lista by remember { mutableStateOf(carregarListaPosto(context)) }
+    val dbHelper = remember {
+        AppDatabaseHelper(context)
+    }
+    var lista by remember { mutableStateOf(carregarListaPosto(dbHelper)) }
 
     Scaffold(
         topBar = {
@@ -65,11 +67,13 @@ fun ListaPostos(navController: NavController) {
                         PostoCard(
                             posto = posto,
                             onDelete = {
-                                deletarPosto(context, index)
-                                lista = carregarListaPosto(context) // Recarrega a lista para a UI
+                                posto.id?.let {id ->
+                                deletarPosto(dbHelper, posto.id)
+                                lista = carregarListaPosto(dbHelper)
+                                } // Recarrega a lista para a UI
                             },
                             onEdit = {
-                                navController.navigate("editarPosto/$index")
+                                navController.navigate("editarPosto/${posto.id}")
                             }
                         )
                     }

@@ -52,10 +52,10 @@ fun AppNav() {
         composable("adicionarPosto"){
             AdicionarPosto(navController = nav)
         }
-        composable("editarPosto/{index}"){ backStack ->
-            val index = backStack.arguments?.getString("index")?.toInt() ?: -1
-            if (index != -1) {
-                EditarPosto(index = index, navController = nav)
+        composable("editarPosto/{id}"){ backStack ->
+            val id = backStack.arguments?.getString("id")?.toLongOrNull()
+            if (id != null) {
+                EditarPosto(id = id, navController = nav)
             }
         }
     }
